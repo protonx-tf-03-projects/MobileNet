@@ -1,4 +1,4 @@
-# Project MobileNet <--- FIXME
+# Project MobileNet 
 
 Library Logo <--- **FIXME**
 
@@ -81,7 +81,9 @@ There are some important arguments for the script you should consider when runni
 ## IV. Predict Process
 
 ```bash
+
 python predict.py --test-data ${link_to_test_data}
+
 ```
 
 ## V. Result and Comparision
