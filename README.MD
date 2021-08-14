@@ -1,4 +1,4 @@
-# Project Name <--- FIXME
+# Project MobileNet <--- FIXME
 
 Library Logo <--- **FIXME**
 
@@ -14,15 +14,17 @@ Architecture Image <--- **FIXME**
 
 
 Authors:
-- Github: members github name <--- **FIXME**
-- Email: members emails <--- **FIXME**
+- Github: https://github.com/quynhtl 
+- Email: tranlequynh.uet@gmail.com 
+- Github: https://github.com/NKNK-vn 
+- Email: khoi.nkn12@gmail.com
 
 Advisors:
-- Github: advisor github name <--- **FIXME**
-- Email: advisor emails <--- **FIXME**
+- Github: https://github.com/bangoc123
+- Email: bangoc.gdg@gmail.com
 
 ## I.  Set up environment
-- Step 1: <--- **FIXME**
+- Step 1: Make sure you have installed Miniconda. If not yet, see the setup document <a href="https://docs.conda.io/en/latest/miniconda.html">here</a>
 
 ```python
 conda env create -f environment.yml
@@ -72,6 +74,8 @@ validation/
 ```
 
 <!-- - References: [NLP](https://github.com/bangoc123/transformer) and [CV](https://github.com/bangoc123/mlp-mixer) -->
+
+
 
 ## III. Training Process
 
