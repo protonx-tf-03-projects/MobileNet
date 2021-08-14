@@ -4,6 +4,7 @@ from argparse import ArgumentParser
 #import tensorflow
 import tensorflow as tf
 from tensorflow.keras.preprocessing import image_dataset_from_directory
+from keras_preprocessing.image import ImageDataGenerator
 
 if __name__ == "__main__":
     parser = ArgumentParser()
@@ -39,25 +40,47 @@ if __name__ == "__main__":
     batch_size =  args.batch_size
     image_size = args.image_size
 
-    # Load train images from folder
-    train_ds = image_dataset_from_directory(
+    #Use ImageDataGenerator for augmentation
+    datagen = ImageDataGenerator(
+        rescale=1./255,
+    )
+    #Load train set
+    train_ds = datagen.flow_from_directory(
         train_folder,
+        target_size=(image_size, image_size),
         batch_size=batch_size,
-        image_size=(image_size, image_size),
-        shuffle=True,
-        seed=100
+        class_mode='categorical',
+        shuffle=True
     )
-
-    # Load valid images from folder
-    val_ds = image_dataset_from_directory(
+    #Load test set
+    val_ds = datagen.flow_from_directory(
         valid_folder,
+        target_size=(image_size, image_size),
         batch_size=batch_size,
-        image_size=(image_size, image_size),
-        shuffle=True,
-        seed=100
+        class_mode='categorical',
+        shuffle=True
     )
 
-    assert args.image_size * args.image_size % ( args.patch_size * args.patch_size) == 0, 'Make sure that image-size is divisible by patch-size'
+    
+    # # Load train images from folder
+    # train_ds = image_dataset_from_directory(
+    #     train_folder,
+    #     batch_size=batch_size,
+    #     image_size=(image_size, image_size),
+    #     shuffle=True,
+    #     seed=100
+    # )
+
+    # # Load valid images from folder
+    # val_ds = image_dataset_from_directory(
+    #     valid_folder,
+    #     batch_size=batch_size,
+    #     image_size=(image_size, image_size),
+    #     shuffle=True,
+    #     seed=100
+    # )
+
+    # assert args.image_size * args.image_size % ( args.patch_size * args.patch_size) == 0, 'Make sure that image-size is divisible by patch-size'
     assert args.image_channels == 3, 'Unfortunately, model accepts jpg images with 3 channels so far'
 
     # FIXME
