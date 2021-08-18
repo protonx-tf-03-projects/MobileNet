@@ -43,8 +43,37 @@ conda env create -f environment.yml
 
 ## II.  Set up your dataset
 
-- Guide user how to download your data and set the data pipeline <--- **FIXME**
-- References: [NLP](https://github.com/bangoc123/transformer) and [CV](https://github.com/bangoc123/mlp-mixer)
+<!-- - Guide user how to download your data and set the data pipeline  -->
+1. Download the data:
+- Download dataset [here](https://storage.googleapis.com/mledu-datasets/cats_and_dogs_filtered.zip)
+2. Extract file and put folder ```train``` and ```validation``` to ```./data``` 
+- train folder was used for the training process
+- validation folder was used for validating training result after each epoch
+
+This library use ImageDataGenerator API from Tensorflow 2.0 to load images. Make sure you have some understanding of how it works via [its document](https://keras.io/api/preprocessing/image/)
+Structure of these folders in ```./data```
+
+```
+train/
+...cats/
+......cat.0.jpg
+......cat.1.jpg
+...dogs/
+......dog.0.jpg
+......dog.1.jpg
+```
+
+```
+validation/
+...cats/
+......cat.2000.jpg
+......cat.2001.jpg
+...dogs/
+......dog.2000.jpg
+......dog.2001.jpg
+```
+
+<!-- - References: [NLP](https://github.com/bangoc123/transformer) and [CV](https://github.com/bangoc123/mlp-mixer) -->
 
 
 
