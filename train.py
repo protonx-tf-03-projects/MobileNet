@@ -26,8 +26,8 @@ if __name__ == "__main__":
     # Project Description
 
     print('---------------------Welcome to ProtonX MobileNet-------------------')
-    print('Github: https://github.com/NKNK-vn')
-    print('Email: khoi.nkn12@gmail.com')
+    print('Github: https://github.com/protonx-tf-03-projects/MobileNet')
+    print('Email: ') #Update later
     print('---------------------------------------------------------------------')
     print('Training MobileNet model with hyper-params:')
     print('===========================')
@@ -60,25 +60,6 @@ if __name__ == "__main__":
         class_mode='categorical',
         shuffle=True
     )
-
-    
-    # # Load train images from folder
-    # train_ds = image_dataset_from_directory(
-    #     train_folder,
-    #     batch_size=batch_size,
-    #     image_size=(image_size, image_size),
-    #     shuffle=True,
-    #     seed=100
-    # )
-
-    # # Load valid images from folder
-    # val_ds = image_dataset_from_directory(
-    #     valid_folder,
-    #     batch_size=batch_size,
-    #     image_size=(image_size, image_size),
-    #     shuffle=True,
-    #     seed=100
-    # )
 
     # assert args.image_size * args.image_size % ( args.patch_size * args.patch_size) == 0, 'Make sure that image-size is divisible by patch-size'
     assert args.image_channels == 3, 'Unfortunately, model accepts jpg images with 3 channels so far'

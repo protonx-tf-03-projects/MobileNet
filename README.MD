@@ -50,7 +50,7 @@ conda env create -f environment.yml
 - train folder was used for the training process
 - validation folder was used for validating training result after each epoch
 
-This library use image_dataset_from_directory API from Tensorflow 2.0 to load images. Make sure you have some understanding of how it works via [its document](https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image_dataset_from_directory)
+This library use ImageDataGenerator API from Tensorflow 2.0 to load images. Make sure you have some understanding of how it works via [its document](https://keras.io/api/preprocessing/image/)
 Structure of these folders in ```./data```
 
 ```
