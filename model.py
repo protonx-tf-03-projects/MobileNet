@@ -2,7 +2,7 @@ from threading import main_thread
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
-from tensorflow.keras.layers import Conv2D, DepthwiseConv2D, BatchNormalization, Activation, AveragePooling2D
+from tensorflow.keras.layers import Conv2D, DepthwiseConv2D, BatchNormalization, Activation, AveragePooling2D, ZeroPadding2D
 
 class MobileNetV1:
     def __init__(self, img_size, num_classes = 1000):
@@ -10,13 +10,13 @@ class MobileNetV1:
         self.num_classes = num_classes
         self.model = Sequential()
 
-    def Standard_Conv(self, filter, stride):
-        self.model.add(Conv2D(filters=filter, kernel_size=3, strides=stride, input_shape=(self.img_size, self.img_size, 3)))
+    def Standard_Conv(self, filter, stride, padding='same'):
+        self.model.add(Conv2D(filters=filter, kernel_size=3, strides=stride, padding=padding,input_shape=(self.img_size, self.img_size, 3)))
         self.model.add(BatchNormalization())
         self.model.add(Activation('relu'))
         return self.model
 
-    def Depthwise_Layer(self, stride, padding = 'same'):
+    def Depthwise_Layer(self, stride, padding='same'):
         self.model.add(DepthwiseConv2D(kernel_size=3, strides=stride, padding=padding))
         self.model.add(BatchNormalization())
         self.model.add(Activation('relu'))
@@ -56,7 +56,8 @@ class MobileNetV1:
         self.model = self.Depthwise_Layer(2)
         self.model = self.Pointwise_Layer(1024, 1)
         #Block 13
-        self.model = self.Depthwise_Layer(1)
+        self.model.add(ZeroPadding2D(padding=4))
+        self.model = self.Depthwise_Layer(2, padding='valid')
         self.model = self.Pointwise_Layer(1024, 1)
         #Fully Connected
         self.model.add(AveragePooling2D(pool_size = (7, 7), strides=1))
