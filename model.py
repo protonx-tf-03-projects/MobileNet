@@ -14,7 +14,7 @@ class MobileNetV1:
         self.rho = rho
 
     def Standard_Conv(self, filter, stride, padding='same'):
-        filter = np.floor(filter * self.alpha)
+        filter = int(filter * self.alpha)
         self.model.add(Conv2D(filters=filter, kernel_size=3, strides=stride, padding=padding,input_shape=(int(self.img_size * self.rho), int(self.img_size * self.rho), 3)))
         self.model.add(BatchNormalization())
         self.model.add(Activation('relu'))
@@ -27,7 +27,7 @@ class MobileNetV1:
         return self.model
 
     def Pointwise_Layer(self, filter, stride):
-        filter = np.floor(filter * self.alpha)
+        filter = int(filter * self.alpha)
         self.model.add(Conv2D(filters=filter, kernel_size=1, strides=stride))
         self.model.add(BatchNormalization())
         self.model.add(Activation('relu'))
