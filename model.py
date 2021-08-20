@@ -1,17 +1,21 @@
 from threading import main_thread
+import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
 from tensorflow.keras.layers import Conv2D, DepthwiseConv2D, BatchNormalization, Activation, AveragePooling2D, ZeroPadding2D
 
 class MobileNetV1:
-    def __init__(self, img_size, num_classes = 1000):
+    def __init__(self, img_size, num_classes = 2, alpha = 1.0, rho = 1.0):
         self.img_size = img_size
         self.num_classes = num_classes
         self.model = Sequential()
+        self.alpha = alpha
+        self.rho = rho
 
     def Standard_Conv(self, filter, stride, padding='same'):
-        self.model.add(Conv2D(filters=filter, kernel_size=3, strides=stride, padding=padding,input_shape=(self.img_size, self.img_size, 3)))
+        filter = np.floor(filter * self.alpha)
+        self.model.add(Conv2D(filters=filter, kernel_size=3, strides=stride, padding=padding,input_shape=(int(self.img_size * self.rho), int(self.img_size * self.rho), 3)))
         self.model.add(BatchNormalization())
         self.model.add(Activation('relu'))
         return self.model
@@ -23,6 +27,7 @@ class MobileNetV1:
         return self.model
 
     def Pointwise_Layer(self, filter, stride):
+        filter = np.floor(filter * self.alpha)
         self.model.add(Conv2D(filters=filter, kernel_size=1, strides=stride))
         self.model.add(BatchNormalization())
         self.model.add(Activation('relu'))
@@ -58,15 +63,13 @@ class MobileNetV1:
         #Block 13
         self.model.add(ZeroPadding2D(padding=4))
         self.model = self.Depthwise_Layer(2, padding='valid')
-        self.model = self.Pointwise_Layer(1024, 1)
+        self.model = self.Pointwise_Layer(1024, 1) 
         #Fully Connected
-        self.model.add(AveragePooling2D(pool_size = (7, 7), strides=1))
+        self.model.add(AveragePooling2D(pool_size = (self.model.output_shape[1], self.model.output_shape[1]), strides=1))
         self.model.add(Flatten())
         self.model.add(Dense(units=self.num_classes, activation='softmax'))
         return self.model
 
 # if __name__ == '__main__':
-#     model = MobileNetV1(224)
+#     model = MobileNetV1(224, 2, 1, 1)
 #     print(model.build_model().summary())
-        
-
