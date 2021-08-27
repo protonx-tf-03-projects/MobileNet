@@ -3,17 +3,19 @@ from argparse import ArgumentParser
 
 #import tensorflow
 import tensorflow as tf
-from tensorflow.keras.preprocessing import image_dataset_from_directory
 from keras_preprocessing.image import ImageDataGenerator
+from tensorflow.python.keras.engine.sequential import Sequential
 from model import MobileNetV1
+from keras.applications.mobilenet import preprocess_input
 
 if __name__ == "__main__":
     parser = ArgumentParser()
     
     # FIXME
     # Arguments users used when running command lines
-    parser.add_argument("--batch-size", default=64, type=int)
-    # parser.add_argument("--epochs", default=1000, type=int)
+    parser.add_argument("--batch-size", default=32, type=int)
+    parser.add_argument("--epochs", default=1000, type=int)
+    parser.add_argument("--model-folder", default='./model/', type=str)
     parser.add_argument("--train-folder", default='./data/train', type=str)
     parser.add_argument("--valid-folder", default='./data/validation', type=str)
     parser.add_argument("--image-size", default=224, type=int)
@@ -47,24 +49,28 @@ if __name__ == "__main__":
     num_classes = args.num_classes
 
     #Use ImageDataGenerator for augmentation
-    datagen = ImageDataGenerator(
-        rescale=1./255,
-    )
+    train_datagen = ImageDataGenerator(rescale=1./255, zoom_range=0.3, rotation_range=50,
+                                    width_shift_range=0.2,height_shift_range=0.2,
+                                    shear_range=0.2, horizontal_flip=True, fill_mode='nearest')
+    
+    val_datagen = ImageDataGenerator(rescale=1./255)
     #Load train set
-    train_ds = datagen.flow_from_directory(
+    train_ds = train_datagen.flow_from_directory(
         train_folder,
         target_size=(int(image_size*rho), int(image_size*rho)),
         batch_size=batch_size,
         class_mode='categorical',
-        shuffle=True
+        shuffle=True,
+        seed=123
     )
     #Load test set
-    val_ds = datagen.flow_from_directory(
+    val_ds = val_datagen.flow_from_directory(
         valid_folder,
         target_size=(int(image_size*rho), int(image_size*rho)),
         batch_size=batch_size,
         class_mode='categorical',
-        shuffle=True
+        shuffle=True,
+        seed=123
     )
 
     # assert args.image_size * args.image_size % ( args.patch_size * args.patch_size) == 0, 'Make sure that image-size is divisible by patch-size'
@@ -74,8 +80,10 @@ if __name__ == "__main__":
     assert image_size > 32, 'Unfortunately, model accepts jpg images size higher than 32'
 
     #Load model
-    model = MobileNetV1(image_size, num_classes, alpha, rho)
-    print(model.build_model().summary())
+    MobileNet = MobileNetV1(image_size, num_classes, alpha, rho)
+    model = MobileNet.build_model()
+    model.compile(optimizer=tf.keras.optimizers.SGD(learning_rate=0.01), loss='categorical_crossentropy', metrics=['accuracy'])
+    model.fit(train_ds, epochs = args.epochs,validation_data = val_ds)
     # FIXME
     # Do Prediction
 
