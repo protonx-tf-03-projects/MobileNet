@@ -53,7 +53,7 @@ if __name__ == "__main__":
     #Load train set
     train_ds = datagen.flow_from_directory(
         train_folder,
-        target_size=(image_size, image_size),
+        target_size=(int(image_size*rho), int(image_size*rho)),
         batch_size=batch_size,
         class_mode='categorical',
         shuffle=True
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     #Load test set
     val_ds = datagen.flow_from_directory(
         valid_folder,
-        target_size=(image_size, image_size),
+        target_size=(int(image_size*rho), int(image_size*rho)),
         batch_size=batch_size,
         class_mode='categorical',
         shuffle=True
