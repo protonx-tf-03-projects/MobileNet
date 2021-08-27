@@ -15,7 +15,7 @@ class MobileNetV1:
 
     def Standard_Conv(self, filter, stride, padding='same'):
         filter = int(filter * self.alpha)
-        self.model.add(Conv2D(filters=filter, kernel_size=3, strides=stride, padding=padding,input_shape=(int(self.img_size * self.rho), int(self.img_size * self.rho), 3)))
+        self.model.add(Conv2D(filters=filter, kernel_size=3, strides=stride, padding=padding,input_shape=[int(self.img_size * self.rho), int(self.img_size * self.rho), 3]))
         self.model.add(BatchNormalization())
         self.model.add(Activation('relu'))
         return self.model
