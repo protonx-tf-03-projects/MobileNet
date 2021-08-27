@@ -26,19 +26,16 @@ Advisors:
 ## I.  Set up environment
 - Step 1: Make sure you have installed Miniconda. If not yet, see the setup document <a href="https://docs.conda.io/en/latest/miniconda.html">here</a>
 
-```python
+
+- Step 2: `cd` into `MobileNet` and use command line
+```
 conda env create -f environment.yml
 ```
 
-- Step 2: <--- **FIXME**
-```
+- Step 3: Run conda environment using the command
 
 ```
-
-- Step 3: <--- **FIXME**
-
-```
-
+conda activate mobile_net
 ``` 
 
 ## II.  Set up your dataset
