@@ -4,16 +4,17 @@ from argparse import ArgumentParser
 #import tensorflow
 import tensorflow as tf
 from keras_preprocessing.image import ImageDataGenerator
-from tensorflow.python.keras.engine.sequential import Sequential
+from tensorflow.keras.preprocessing import image_dataset_from_directory
+from tensorflow.keras.optimizers import RMSprop, Adam, Adamax, SGD
 from model import MobileNetV1
-from keras.applications.mobilenet import preprocess_input
+import matplotlib.pyplot as plt 
 
 if __name__ == "__main__":
     parser = ArgumentParser()
     
     # FIXME
     # Arguments users used when running command lines
-    parser.add_argument("--batch-size", default=32, type=int)
+    parser.add_argument("--batch-size", default=16, type=int)
     parser.add_argument("--epochs", default=1000, type=int)
     parser.add_argument("--model-folder", default='./model/', type=str)
     parser.add_argument("--train-folder", default='./data/train', type=str)
@@ -49,9 +50,14 @@ if __name__ == "__main__":
     num_classes = args.num_classes
 
     #Use ImageDataGenerator for augmentation
-    train_datagen = ImageDataGenerator(rescale=1./255, zoom_range=0.3, rotation_range=50,
-                                    width_shift_range=0.2,height_shift_range=0.2,
-                                    shear_range=0.2, horizontal_flip=True, fill_mode='nearest')
+    train_datagen = ImageDataGenerator(rescale=1./255,
+        rotation_range=40,
+        width_shift_range=0.2,
+        height_shift_range=0.2,
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=True,
+        fill_mode='nearest')
     
     val_datagen = ImageDataGenerator(rescale=1./255)
     #Load train set
@@ -61,7 +67,7 @@ if __name__ == "__main__":
         batch_size=batch_size,
         class_mode='categorical',
         shuffle=True,
-        seed=123
+        seed=10,
     )
     #Load test set
     val_ds = val_datagen.flow_from_directory(
@@ -70,8 +76,27 @@ if __name__ == "__main__":
         batch_size=batch_size,
         class_mode='categorical',
         shuffle=True,
-        seed=123
+        seed=10,
     )
+
+    # train_ds = image_dataset_from_directory(
+    #     train_folder,
+    #     seed=123,
+    #     image_size=(int(image_size*rho), int(image_size*rho)),
+    #     shuffle=True,
+    #     batch_size=batch_size, 
+    #     label_mode='categorical'
+    # )
+
+    # # Load Validation images from folder
+    # val_ds = image_dataset_from_directory(
+    #     valid_folder,
+    #     seed=123,
+    #     image_size=(int(image_size*rho), int(image_size*rho)),
+    #     shuffle=True,
+    #     batch_size= batch_size,
+    #     label_mode='categorical'
+    # )
 
     # assert args.image_size * args.image_size % ( args.patch_size * args.patch_size) == 0, 'Make sure that image-size is divisible by patch-size'
     assert args.image_channels == 3, 'Unfortunately, model accepts jpg images with 3 channels so far'
@@ -82,9 +107,30 @@ if __name__ == "__main__":
     #Load model
     MobileNet = MobileNetV1(image_size, num_classes, alpha, rho)
     model = MobileNet.build_model()
-    model.compile(optimizer=tf.keras.optimizers.SGD(learning_rate=0.01), loss='categorical_crossentropy', metrics=['accuracy'])
-    model.fit(train_ds, epochs = args.epochs,validation_data = val_ds)
-    # FIXME
+
+    #Train model
+    model.compile(optimizer=RMSprop(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
+    history = model.fit(train_ds, epochs = args.epochs,validation_data = val_ds)
+
+    #Show Model Train History
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['accuracy'])
+    plt.title('model training')
+    plt.ylabel('value')
+    plt.xlabel('epoch')
+    plt.legend(['loss', 'accuracy'], loc='upper left')
+    plt.savefig("train.jpg")
+    plt.show()
+
+    #Show Model Val History
+    plt.plot(history.history['val_loss'])
+    plt.plot(history.history['val_accuracy'])
+    plt.title('model validation')
+    plt.ylabel('value')
+    plt.xlabel('epoch')
+    plt.legend(['val_loss', 'val_accuracy'], loc='upper left')
+    plt.savefig("val.jpg")
+    plt.show()
     # Do Prediction
 
 
