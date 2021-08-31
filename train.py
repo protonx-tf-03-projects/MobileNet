@@ -4,10 +4,12 @@ from argparse import ArgumentParser
 #import tensorflow
 import tensorflow as tf
 from keras_preprocessing.image import ImageDataGenerator
-from tensorflow.keras.preprocessing import image_dataset_from_directory
 from tensorflow.keras.optimizers import RMSprop, Adam, Adamax, SGD
+from tensorflow.python.keras.engine.sequential import Sequential
 from model import MobileNetV1
 import matplotlib.pyplot as plt 
+# from optimizer import CustomLearningRate
+from tensorflow.keras.callbacks import ReduceLROnPlateau, ModelCheckpoint
 
 if __name__ == "__main__":
     parser = ArgumentParser()
@@ -15,7 +17,7 @@ if __name__ == "__main__":
     # FIXME
     # Arguments users used when running command lines
     parser.add_argument("--batch-size", default=16, type=int)
-    parser.add_argument("--epochs", default=1000, type=int)
+    parser.add_argument("--epochs", default=100, type=int)
     parser.add_argument("--model-folder", default='./model/', type=str)
     parser.add_argument("--train-folder", default='./data/train', type=str)
     parser.add_argument("--valid-folder", default='./data/validation', type=str)
@@ -28,7 +30,6 @@ if __name__ == "__main__":
     home_dir = os.getcwd()
     args = parser.parse_args()
 
-    # FIXME
     # Project Description
 
     print('---------------------Welcome to ProtonX MobileNet-------------------')
@@ -50,14 +51,13 @@ if __name__ == "__main__":
     num_classes = args.num_classes
 
     #Use ImageDataGenerator for augmentation
-    train_datagen = ImageDataGenerator(rescale=1./255,
-        rotation_range=40,
-        width_shift_range=0.2,
-        height_shift_range=0.2,
-        shear_range=0.2,
-        zoom_range=0.2,
-        horizontal_flip=True,
-        fill_mode='nearest')
+    train_datagen = ImageDataGenerator(rotation_range=15,
+                                        rescale=1./255,
+                                        shear_range=0.1,
+                                        zoom_range=0.2,
+                                        horizontal_flip=True,
+                                        width_shift_range=0.1,
+                                        height_shift_range=0.1)
     
     val_datagen = ImageDataGenerator(rescale=1./255)
     #Load train set
@@ -67,7 +67,7 @@ if __name__ == "__main__":
         batch_size=batch_size,
         class_mode='categorical',
         shuffle=True,
-        seed=10,
+        seed=123,
     )
     #Load test set
     val_ds = val_datagen.flow_from_directory(
@@ -76,27 +76,10 @@ if __name__ == "__main__":
         batch_size=batch_size,
         class_mode='categorical',
         shuffle=True,
-        seed=10,
+        seed=123,
     )
-
-    # train_ds = image_dataset_from_directory(
-    #     train_folder,
-    #     seed=123,
-    #     image_size=(int(image_size*rho), int(image_size*rho)),
-    #     shuffle=True,
-    #     batch_size=batch_size, 
-    #     label_mode='categorical'
-    # )
-
-    # # Load Validation images from folder
-    # val_ds = image_dataset_from_directory(
-    #     valid_folder,
-    #     seed=123,
-    #     image_size=(int(image_size*rho), int(image_size*rho)),
-    #     shuffle=True,
-    #     batch_size= batch_size,
-    #     label_mode='categorical'
-    # )
+    print('Train label: {}'.format(train_ds.class_indices))
+    print('Val label: {}'.format(val_ds.class_indices))
 
     # assert args.image_size * args.image_size % ( args.patch_size * args.patch_size) == 0, 'Make sure that image-size is divisible by patch-size'
     assert args.image_channels == 3, 'Unfortunately, model accepts jpg images with 3 channels so far'
@@ -104,32 +87,59 @@ if __name__ == "__main__":
     assert rho > 0 and rho <= 1, 'Unfortunately, model accepts alpha  with lower than 1 and higher than 0'
     assert image_size > 32, 'Unfortunately, model accepts jpg images size higher than 32'
 
-    #Load model
+    # Load model
     MobileNet = MobileNetV1(image_size, num_classes, alpha, rho)
     model = MobileNet.build_model()
 
+    # # Create custom Optimizer
+    # lrate = CustomLearningRate(512)
+    #Callback
+    learning_rate_reduction = ReduceLROnPlateau(monitor='val_accuracy', 
+                                            patience=5, 
+                                            verbose=1, 
+                                            factor=0.5, 
+                                            min_lr=0.00001)
+    checkpoint = ModelCheckpoint(filepath=args.model_folder + 'weights.{epoch:02d}-{val_accuracy:.4f}.h5', monitor='val_accuracy', mode='max', save_best_only=True, save_weights_only=False, verbose=1)
+    callbacks = [learning_rate_reduction, checkpoint]                    
+    
     #Train model
-    model.compile(optimizer=RMSprop(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
-    history = model.fit(train_ds, epochs = args.epochs,validation_data = val_ds)
-
-    #Show Model Train History
+    model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
+    history = model.fit(train_ds, epochs = args.epochs, callbacks=callbacks, validation_data = val_ds)
+    
+    #Show Model Train Loss History
     plt.plot(history.history['loss'])
-    plt.plot(history.history['accuracy'])
-    plt.title('model training')
-    plt.ylabel('value')
+    plt.title('model training loss')
+    plt.ylabel('loss')
     plt.xlabel('epoch')
-    plt.legend(['loss', 'accuracy'], loc='upper left')
-    plt.savefig("train.jpg")
+    plt.legend(['loss'], loc='upper left')
+    plt.savefig("train_loss.jpg")
     plt.show()
 
-    #Show Model Val History
-    plt.plot(history.history['val_loss'])
-    plt.plot(history.history['val_accuracy'])
-    plt.title('model validation')
-    plt.ylabel('value')
+    #Show Model Train Accuracy History
+    plt.plot(history.history['accuracy'])
+    plt.title('model training accuracy')
+    plt.ylabel('accuracy')
     plt.xlabel('epoch')
-    plt.legend(['val_loss', 'val_accuracy'], loc='upper left')
-    plt.savefig("val.jpg")
+    plt.legend(['accuracy'], loc='upper left')
+    plt.savefig("train_acc.jpg")
+    plt.show()
+
+    #Show Model Val Loss History
+    plt.plot(history.history['val_loss'])
+    plt.title('model validation loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(['val_loss'], loc='upper left')
+    plt.savefig("val_loss.jpg")
+    plt.show()
+    
+    #Show Model Val Accuracy History
+    plt.plot(history.history['val_accuracy'])
+    plt.title('model validation accuracy')
+    plt.ylabel('accuracy')
+    plt.xlabel('epoch')
+    plt.legend(['val_accuracy'], loc='upper left')
+    plt.savefig("val_acc.jpg")
     plt.show()
     # Do Prediction
 
