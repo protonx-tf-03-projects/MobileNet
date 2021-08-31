@@ -9,7 +9,7 @@ if __name__ == "__main__":
 
     parser = ArgumentParser()
     parser.add_argument("--test-file-path", type=str, required=True)
-    parser.add_argument("--model-path", default='./model/', type=str, required=True)
+    parser.add_argument("--model-path", default='./model/model.h5', type=str, required=True)
     parser.add_argument("--image-size", default=224, type=int)
     parser.add_argument("--image-channels", default=3, type=int)
     parser.add_argument("--rho", help='modify img_size, should be (0:1]',default=1.0, type=float)
