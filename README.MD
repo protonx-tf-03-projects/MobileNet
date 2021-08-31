@@ -74,36 +74,38 @@ validation/
 
 
 
-## III. Training Process
-
-
-**FIXME**
+## III. Train your model by running this command line
 
 Training script:
 
 
 ```python
 
-python train.py --epochs ${epochs} --input-lang en --target-lang vi --input-path ${path_to_en_text_file} --target-path ${path_to_vi_text_file}
+python train.py --epochs ${epochs} --num-classes ${num_classes} 
 
 ```
-**FIXME**
+You want to train a model in 10 epochs for binary classification problems (with 2 classes)
+
+
 
 Example:
 
 ```python
 
-!python train.py --train-folder ${train_folder} --valid-folder ${valid_folder} --num-classes 2 --patch-size 5 --image-size 150 --lr 0.0001 --epochs 200 --num-heads 12 
+python train.py --epochs 10 --num-classes 2 
 
 ``` 
-**FIXME**
 
 There are some important arguments for the script you should consider when running it:
 
 - `train-folder`: The folder of training data
 - `valid-folder`: The folder of validation data
-- ...
-
+- `model-folder`: Where the model after training saved
+- `num-classes`: The number of your problem classes.
+- `batch-size`: The batch size of the dataset
+- `image-size`: The image size of the dataset
+- `alpha`: 
+- `rho`:
 ## IV. Predict Process
 
 ```bash
