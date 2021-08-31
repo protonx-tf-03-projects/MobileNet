@@ -99,7 +99,7 @@ if __name__ == "__main__":
                                             verbose=1, 
                                             factor=0.5, 
                                             min_lr=0.00001)
-    checkpoint = ModelCheckpoint(filepath=args.model_folder + 'weights.{epoch:02d}-{val_accuracy:.4f}.h5', monitor='val_accuracy', mode='max', save_best_only=True, save_weights_only=False, verbose=1)
+    checkpoint = ModelCheckpoint(filepath=args.model_folder + 'model.h5', monitor='val_accuracy', mode='max', save_best_only=True, save_weights_only=False, verbose=1)
     callbacks = [learning_rate_reduction, checkpoint]                    
     
     #Train model
@@ -132,7 +132,7 @@ if __name__ == "__main__":
     plt.legend(['val_loss'], loc='upper left')
     plt.savefig("val_loss.jpg")
     plt.show()
-    
+
     #Show Model Val Accuracy History
     plt.plot(history.history['val_accuracy'])
     plt.title('model validation accuracy')
