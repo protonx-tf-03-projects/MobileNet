@@ -3,7 +3,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
-from tensorflow.keras.layers import Conv2D, DepthwiseConv2D, BatchNormalization, Activation, AveragePooling2D, ZeroPadding2D
+from tensorflow.keras.layers import Conv2D, DepthwiseConv2D, BatchNormalization, Activation, GlobalAveragePooling2D, ZeroPadding2D
 
 class MobileNetV1:
     def __init__(self, img_size, num_classes = 2, alpha = 1.0, rho = 1.0):
@@ -65,11 +65,12 @@ class MobileNetV1:
         self.model = self.Depthwise_Layer(2, padding='valid')
         self.model = self.Pointwise_Layer(1024, 1) 
         #Fully Connected
-        self.model.add(AveragePooling2D(pool_size = (self.model.output_shape[1], self.model.output_shape[1]), strides=1))
-        self.model.add(Flatten())
+        self.model.add(GlobalAveragePooling2D())
+        self.model.add(BatchNormalization())
+        self.model.add(Dropout(0.5))
         self.model.add(Dense(units=self.num_classes, activation='softmax'))
         return self.model
 
-# if __name__ == '__main__':
-#     model = MobileNetV1(224, 2, 1, 1)
-#     print(model.build_model().summary())
+if __name__ == '__main__':
+    model = MobileNetV1(224, 2, 1, 1)
+    print(model.build_model().summary())
