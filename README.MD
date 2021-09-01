@@ -1,6 +1,11 @@
 # MobileNet 
 Implementation of [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861). Give us a star if you like this repo.
 
+Run it on colab:
+
+<a href="https://colab.research.google.com/drive/1j3eh-GVhLIIHZ6HsT1jg56K9U1P_BiTh?usp=sharing"><img src="https://storage.googleapis.com/protonx-cloud-storage/colab_favicon_256px.png" width=80> </a>
+
+
 Library Logo <--- TODO:
 
 <p align="center">
