@@ -16,7 +16,7 @@ This library is part of our project: Building an AI library with ProtonX. This p
 
 Slide about your project : 
 + English version : <a href="https://towardsdatascience.com/review-mobilenetv1-depthwise-separable-convolution-light-weight-model-a382df364b69">paper</a>
-+ vietnamese version : <a href="https://docs.google.com/document/d/1mA3SaEipchu4OIyhdOe_IbeDHuhqfOlrHLj-OL7LiAI/edit">review paper</a>
++ Vietnamese version : <a href="https://docs.google.com/document/d/1mA3SaEipchu4OIyhdOe_IbeDHuhqfOlrHLj-OL7LiAI/edit">review paper</a>
 
 
 In this paper, the author used `Depthwise Separable Convolution` to reduce the model size and complexity. It is particularly useful for mobile and embedded vision applications
