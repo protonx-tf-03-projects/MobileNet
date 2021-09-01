@@ -12,9 +12,12 @@ Library Logo <--- TODO:
     <img src='https://storage.googleapis.com/protonx-cloud-storage/transformer/protonx-transf.png' width=200 class="center">
 </p>
 
-Description about your project. Why do you choose to build this?  <--- TODO:
+This library is part of our project: Building an AI library with ProtonX. This paper describes a very small, low latency and efficient network architecture called MobileNet for mobile and embedded vision applications.
 
-Slide about your project (if it's available) <--- TODO:
+Slide about your project : 
++ English version : <a href="https://towardsdatascience.com/review-mobilenetv1-depthwise-separable-convolution-light-weight-model-a382df364b69">paper</a>
++ vietnamese version : <a href="https://docs.google.com/document/d/1mA3SaEipchu4OIyhdOe_IbeDHuhqfOlrHLj-OL7LiAI/edit">review paper</a>
+
 
 In this paper, the author used `Depthwise Separable Convolution` to reduce the model size and complexity. It is particularly useful for mobile and embedded vision applications
 
@@ -42,8 +45,6 @@ Authors:
 - Email: tranlequynh.uet@gmail.com 
 - Github: https://github.com/NKNK-vn 
 - Email: khoi.nkn12@gmail.com
-- Github: https://github.com/hthuy1998
-- Email: thuybg98a5@gmail.com
 - Github: https://github.com/TrungBui-Purdue-5913
 - Email: buitranchitrung2002@gmail.com
 
