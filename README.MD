@@ -1,16 +1,35 @@
-# Project MobileNet <--- FIXME
+# MobileNet 
+Implementation of [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861). Give us a star if you like this repo.
 
-Library Logo <--- **FIXME**
+Library Logo <--- TODO:
 
 <p align="center">
     <img src='https://storage.googleapis.com/protonx-cloud-storage/transformer/protonx-transf.png' width=200 class="center">
 </p>
 
-Description about your project. Why do you choose to build this?  <--- **FIXME**
+Description about your project. Why do you choose to build this?  <--- TODO:
 
-Slide about your project (if it's available) <--- **FIXME**
+Slide about your project (if it's available) <--- TODO:
 
-Architecture Image <--- **FIXME**
+In this paper, the author used `Depthwise Separable Convolution` to reduce the model size and complexity. It is particularly useful for mobile and embedded vision applications
+
+`Depthwise separable convolution` is a `depthwise convolution` followed by a `pointwise convolution` as follows:
+<p align="center">
+    <img src='figures/DepthwiseSeparableConvolution.png' width=400 class="center">
+</p>
+
+You can read more on [page 2](https://arxiv.org/pdf/1704.04861.pdf)
+
+MobileNet Architecture :
+
+
+<p align="center">
+    <img src='figures/architecture.png' width=300 class="center">
+</p>
+
+To implement this paper, we use tensorflow libary with:
+- Depthwise_Layer: [DepthwiseConv2D](https://www.tensorflow.org/api_docs/python/tf/keras/layers/DepthwiseConv2D) >> [BatchNormalization](https://keras.io/api/layers/normalization_layers/batch_normalization/) >> [Relu](https://keras.io/api/layers/activations/#relu-function)
+- Pointwise_Layer: [Conv2D with 1x1 filter](https://www.tensorflow.org/api_docs/python/tf/keras/layers/Conv2D) >> [BatchNormalization](https://keras.io/api/layers/normalization_layers/batch_normalization/) >> [Relu](https://keras.io/api/layers/activations/#relu-function)
 
 
 Authors:
@@ -18,6 +37,10 @@ Authors:
 - Email: tranlequynh.uet@gmail.com 
 - Github: https://github.com/NKNK-vn 
 - Email: khoi.nkn12@gmail.com
+- Github: https://github.com/hthuy1998
+- Email: thuybg98a5@gmail.com
+- Github: https://github.com/TrungBui-Purdue-5913
+- Email: buitranchitrung2002@gmail.com
 
 Advisors:
 - Github: https://github.com/bangoc123
@@ -104,32 +127,31 @@ There are some important arguments for the script you should consider when runni
 - `num-classes`: The number of your problem classes.
 - `batch-size`: The batch size of the dataset
 - `image-size`: The image size of the dataset
-- `alpha`: 
-- `rho`:
+- `alpha`: Width Multiplier. It was mentioned in the paper on [page 4](https://arxiv.org/pdf/1704.04861.pdf)
+- `rho`: Resolution Multiplier, It was mentioned in the paper on [page 4](https://arxiv.org/pdf/1704.04861.pdf)
 ## IV. Predict Process
 
 ```bash
-python predict.py --test-data ${link_to_test_data}
+python predict.py --test-file-path ${link_to_test_data}
 ```
 
 ## V. Result and Comparision
 
-**FIXME**
 
-Your implementation
+My implementation
 ```
-Epoch 7/10
-782/782 [==============================] - 261s 334ms/step - loss: 0.8315 - acc: 0.8565 - val_loss: 0.8357 - val_acc: 0.7978
-Epoch 8/10
-782/782 [==============================] - 261s 334ms/step - loss: 0.3182 - acc: 0.8930 - val_loss: 0.6161 - val_acc: 0.8047
-Epoch 9/10
-782/782 [==============================] - 261s 333ms/step - loss: 1.1965 - acc: 0.8946 - val_loss: 3.9842 - val_acc: 0.7855
-Epoch 10/10
-782/782 [==============================] - 261s 333ms/step - loss: 0.4717 - acc: 0.8878 - val_loss: 0.4894 - val_acc: 0.8262
+Epoch 66/70
+125/125 [==============================] - 39s 309ms/step - loss: 0.1861 - acc: 0.9280 - val_loss: 0.3813 - val_acc: 0.8500
+Epoch 67/10
+125/125 [==============================] - 39s 309ms/step - loss: 0.1812 - acc: 0.9305 - val_loss: 0.3837 - val_acc: 0.8590
+Epoch 68/10
+125/125 [==============================] - 39s 309ms/step - loss: 0.1721 - acc: 0.9320 - val_loss: 0.3816 - val_acc: 0.8600
+Epoch 69/10
+125/125 [==============================] - 39s 309ms/step - loss: 0.1841 - acc: 0.9285 - val_loss: 0.3826 - val_acc: 0.8610
 
 ```
 
-**FIXME**
+<!-- **FIXME**
 
 Other architecture
 
@@ -140,12 +162,13 @@ Epoch 7/10
 391/391 [==============================] - 114s 291ms/step - loss: 0.1526 - acc: 0.9494 - val_loss: 0.5224 - val_acc: 0.8318
 Epoch 8/10
 391/391 [==============================] - 115s 293ms/step - loss: 0.1441 - acc: 0.9513 - val_loss: 0.5811 - val_acc: 0.7875
-```
+``` -->
 
-Your comments about these results <--- **FIXME**
+TODO:
+Your comments about these results 
 
 
-## VI. Running Test
+<!-- ## VI. Running Test
 
 When you want to modify the model, you need to run the test to make sure your change does not affect the whole system.
 
@@ -153,6 +176,8 @@ In the `./folder-name` **(FIXME)** folder please run:
 
 ```bash
 pytest
-```
+``` -->
+## VI. Feedback
+If you meet any issues when using this library, please let us know via the issues submission tab.
 
 
