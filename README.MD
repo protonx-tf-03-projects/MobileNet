@@ -1,11 +1,6 @@
 # MobileNet 
 Implementation of [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861). Give us a star if you like this repo.
 
-Run it on colab:
-
-<a href="https://colab.research.google.com/drive/1j3eh-GVhLIIHZ6HsT1jg56K9U1P_BiTh?usp=sharing"><img src="https://storage.googleapis.com/protonx-cloud-storage/colab_favicon_256px.png" width=80> </a>
-
-
 Library Logo <--- TODO:
 
 <p align="center">
@@ -15,7 +10,7 @@ Library Logo <--- TODO:
 This library is part of our project: Building an AI library with ProtonX. This paper describes a very small, low latency and efficient network architecture called MobileNet for mobile and embedded vision applications.
 
 Slide about your project : 
-+ English version : <a href="https://towardsdatascience.com/review-mobilenetv1-depthwise-separable-convolution-light-weight-model-a382df364b69">paper</a>
++ English version : <a href="https://towardsdatascience.com/review-mobilenetv1-depthwise-separable-convolution-light-weight-model-a382df364b69">here</a>
 + Vietnamese version : <a href="https://docs.google.com/document/d/1mA3SaEipchu4OIyhdOe_IbeDHuhqfOlrHLj-OL7LiAI/edit">review paper</a>
 
 
@@ -104,6 +99,11 @@ validation/
 
 
 ## III. Train your model by running this command line
+
+Review training on colab:
+
+<a href="https://colab.research.google.com/drive/1j3eh-GVhLIIHZ6HsT1jg56K9U1P_BiTh?usp=sharing"><img src="https://storage.googleapis.com/protonx-cloud-storage/colab_favicon_256px.png" width=80> </a>
+
 
 Training script:
 
