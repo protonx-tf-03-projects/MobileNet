@@ -45,7 +45,7 @@ Authors:
 
 Advisors:
 - Github: https://github.com/bangoc123
-- Email: bangoc.gdg@gmail.com
+- Email: protonxai@gmail.com
 
 ## I.  Set up environment
 - Step 1: Make sure you have installed Miniconda. If not yet, see the setup document <a href="https://docs.conda.io/en/latest/miniconda.html">here</a>
@@ -136,9 +136,13 @@ There are some important arguments for the script you should consider when runni
 - `alpha`: Width Multiplier. It was mentioned in the paper on [page 4](https://arxiv.org/pdf/1704.04861.pdf)
 - `rho`: Resolution Multiplier, It was mentioned in the paper on [page 4](https://arxiv.org/pdf/1704.04861.pdf)
 ## IV. Predict Process
-
+If you want to test your single image, please run this code:
 ```bash
 python predict.py --test-file-path ${link_to_test_data}
+```
+If you want to evaluate your model, please run this code:
+```bash
+python model/tests/model_test.py --test-folder ${link_to_test_folder}
 ```
 
 ## V. Result and Comparision
@@ -148,11 +152,11 @@ My implementation
 ```
 Epoch 66/70
 125/125 [==============================] - 39s 309ms/step - loss: 0.1861 - acc: 0.9280 - val_loss: 0.3813 - val_acc: 0.8500
-Epoch 67/10
+Epoch 67/70
 125/125 [==============================] - 39s 309ms/step - loss: 0.1812 - acc: 0.9305 - val_loss: 0.3837 - val_acc: 0.8590
-Epoch 68/10
+Epoch 68/70
 125/125 [==============================] - 39s 309ms/step - loss: 0.1721 - acc: 0.9320 - val_loss: 0.3816 - val_acc: 0.8600
-Epoch 69/10
+Epoch 69/70
 125/125 [==============================] - 39s 309ms/step - loss: 0.1841 - acc: 0.9285 - val_loss: 0.3826 - val_acc: 0.8610
 
 ```
