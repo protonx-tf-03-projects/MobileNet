@@ -133,9 +133,13 @@ There are some important arguments for the script you should consider when runni
 - `alpha`: Width Multiplier. It was mentioned in the paper on [page 4](https://arxiv.org/pdf/1704.04861.pdf)
 - `rho`: Resolution Multiplier, It was mentioned in the paper on [page 4](https://arxiv.org/pdf/1704.04861.pdf)
 ## IV. Predict Process
-
+If you want to test your single image, please run this code:
 ```bash
 python predict.py --test-file-path ${link_to_test_data}
+```
+If you want to evaluate your model, please run this code:
+```bash
+python model/tests/model_test.py --test-folder ${link_to_test_folder}
 ```
 
 ## V. Result and Comparision
