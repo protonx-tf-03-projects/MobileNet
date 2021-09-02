@@ -42,14 +42,12 @@ Authors:
 - Email: tranlequynh.uet@gmail.com 
 - Github: https://github.com/NKNK-vn 
 - Email: khoi.nkn12@gmail.com
-- Github: https://github.com/hthuy1998
-- Email: thuybg98a5@gmail.com
 - Github: https://github.com/TrungBui-Purdue-5913
 - Email: buitranchitrung2002@gmail.com
 
 Advisors:
 - Github: https://github.com/bangoc123
-- Email: bangoc.gdg@gmail.com
+- Email: protonxai@gmail.com
 
 ## I.  Set up environment
 - Step 1: Make sure you have installed Miniconda. If not yet, see the setup document <a href="https://docs.conda.io/en/latest/miniconda.html">here</a>
@@ -147,11 +145,11 @@ My implementation
 ```
 Epoch 66/70
 125/125 [==============================] - 39s 309ms/step - loss: 0.1861 - acc: 0.9280 - val_loss: 0.3813 - val_acc: 0.8500
-Epoch 67/10
+Epoch 67/70
 125/125 [==============================] - 39s 309ms/step - loss: 0.1812 - acc: 0.9305 - val_loss: 0.3837 - val_acc: 0.8590
-Epoch 68/10
+Epoch 68/70
 125/125 [==============================] - 39s 309ms/step - loss: 0.1721 - acc: 0.9320 - val_loss: 0.3816 - val_acc: 0.8600
-Epoch 69/10
+Epoch 69/70
 125/125 [==============================] - 39s 309ms/step - loss: 0.1841 - acc: 0.9285 - val_loss: 0.3826 - val_acc: 0.8610
 
 ```
