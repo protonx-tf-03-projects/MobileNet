@@ -1,20 +1,19 @@
 # MobileNet 
 Implementation of [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861). Give us a star if you like this repo.
 
-Library Logo <--- TODO:
 
 <p align="center">
-    <img src='https://storage.googleapis.com/protonx-cloud-storage/transformer/protonx-transf.png' width=200 class="center">
+    <img src='figures/mobile_net.png' width=200 class="center">
 </p>
 
 This library is part of our project: Building an AI library with ProtonX. This paper describes a very small, low latency and efficient network architecture called MobileNet for mobile and embedded vision applications.
 
-Slide about your project : 
+Slide about my project : 
 + English version : <a href="https://towardsdatascience.com/review-mobilenetv1-depthwise-separable-convolution-light-weight-model-a382df364b69">here</a>
 + Vietnamese version : <a href="https://docs.google.com/document/d/1mA3SaEipchu4OIyhdOe_IbeDHuhqfOlrHLj-OL7LiAI/edit">review paper</a>
 
 
-In this paper, the author used `Depthwise Separable Convolution` to reduce the model size and complexity. It is particularly useful for mobile and embedded vision applications
+In this paper, the author used `Depthwise Separable Convolution` to reduce the model size and complexity.
 
 `Depthwise separable convolution` is a `depthwise convolution` followed by a `pointwise convolution` as follows:
 <p align="center">
@@ -174,8 +173,6 @@ Epoch 8/10
 391/391 [==============================] - 115s 293ms/step - loss: 0.1441 - acc: 0.9513 - val_loss: 0.5811 - val_acc: 0.7875
 ``` -->
 
-TODO:
-Your comments about these results 
 
 
 <!-- ## VI. Running Test
