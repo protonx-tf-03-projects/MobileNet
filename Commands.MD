@@ -13,7 +13,7 @@ conda activate base-library
 ## Install Dependencies
 
 ```python
-pip install tensorflow==2.5.0
+pip install tensorflow==2.6.0
 ```
 
 ## Export Dependencies
