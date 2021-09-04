@@ -66,8 +66,7 @@ class MobileNetV1:
         self.model = self.Pointwise_Layer(1024, 1) 
         #Fully Connected
         self.model.add(GlobalAveragePooling2D())
-        self.model.add(BatchNormalization())
-        self.model.add(Dropout(0.5))
+        self.model.add(Dropout(0.2))
         self.model.add(Dense(units=self.num_classes, activation='softmax'))
         return self.model
 
