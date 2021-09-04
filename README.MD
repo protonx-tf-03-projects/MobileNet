@@ -9,7 +9,6 @@ Implementation of [MobileNets: Efficient Convolutional Neural Networks for Mobil
 This library is part of our project: Building an AI library with ProtonX. This paper describes a very small, low latency and efficient network architecture called MobileNet for mobile and embedded vision applications.
 
 Slide about my project : 
-+ English version : <a href="https://towardsdatascience.com/review-mobilenetv1-depthwise-separable-convolution-light-weight-model-a382df364b69">here</a>
 + Vietnamese version : <a href="https://docs.google.com/document/d/1mA3SaEipchu4OIyhdOe_IbeDHuhqfOlrHLj-OL7LiAI/edit">review paper</a>
 
 
@@ -20,7 +19,7 @@ In this paper, the author used `Depthwise Separable Convolution` to reduce the m
     <img src='figures/DepthwiseSeparableConvolution.png' width=400 class="center">
 </p>
 
-You can read more on [page 2](https://arxiv.org/pdf/1704.04861.pdf)
+You can read more on [page 2](https://arxiv.org/pdf/1704.04861.pdf) or [here](https://towardsdatascience.com/review-mobilenetv1-depthwise-separable-convolution-light-weight-model-a382df364b69)
 
 MobileNet Architecture :
 
